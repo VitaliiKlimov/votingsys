@@ -1,4 +1,4 @@
-package model;
+package com.votingsys.model;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;

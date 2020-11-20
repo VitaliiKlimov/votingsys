@@ -1,4 +1,4 @@
-package model;
+package com.votingsys.model;
 
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;

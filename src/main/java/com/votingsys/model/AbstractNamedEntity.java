@@ -1,4 +1,4 @@
-package model;
+package com.votingsys.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

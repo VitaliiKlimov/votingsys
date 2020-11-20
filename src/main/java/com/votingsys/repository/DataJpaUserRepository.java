@@ -1,6 +1,6 @@
-package repository;
+package com.votingsys.repository;
 
-import model.User;
+import com.votingsys.model.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +17,7 @@ public class DataJpaUserRepository {
     private final CrudUserRepository crudRepository;
 
     public DataJpaUserRepository(CrudUserRepository crudRepository) {
+
         this.crudRepository = crudRepository;
     }
 

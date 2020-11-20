@@ -1,4 +1,4 @@
-package model;
+package com.votingsys.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

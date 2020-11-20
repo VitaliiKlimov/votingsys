@@ -1,7 +1,4 @@
-package model;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+package com.votingsys.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

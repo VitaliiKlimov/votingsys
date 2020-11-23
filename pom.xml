@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.app</groupId>
+    <groupId>com</groupId>
     <artifactId>votingsys</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -22,7 +22,7 @@
         <tomcat.version>9.0.39</tomcat.version>
 
         <!--    Tests  -->
-        <junit.version>4.13.1</junit.version>
+        <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <assertj.version>3.17.2</assertj.version>
 
         <!-- Hibernate -->
@@ -32,7 +32,7 @@
     </properties>
 
     <build>
-        <finalName>topjava</finalName>
+        <finalName>votingsys</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
@@ -85,6 +85,22 @@
             <artifactId>hsqldb</artifactId>
             <version>2.5.1</version>
         </dependency>
+
+        <!--- TEST -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+        <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

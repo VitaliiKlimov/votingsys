@@ -1,10 +1,13 @@
 package com.votingsys.repository;
 
 import com.votingsys.model.User;
+import com.votingsys.util.exception.NotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User: Vitaliy Klimov
@@ -30,7 +33,8 @@ public class DataJpaUserRepository {
     }
 
     public User get(int id) {
-        return crudRepository.findById(id).orElse(null);
+        Optional<User> optionalUser = crudRepository.findById(id);//.orElseThrow(()->new NotFoundException("user not found"));
+        return optionalUser.orElseThrow(()->new NotFoundException("user not found")); /*.orElse(null)*/
     }
 
     public User getByEmail(String email) {

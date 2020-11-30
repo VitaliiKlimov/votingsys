@@ -33,7 +33,7 @@ public class DataJpaUserRepository {
     }
 
     public User get(int id) {
-        Optional<User> optionalUser = crudRepository.findById(id);//.orElseThrow(()->new NotFoundException("user not found"));
+        Optional<User> optionalUser = crudRepository.findById(id);
         return optionalUser.orElseThrow(()->new NotFoundException("user not found")); /*.orElse(null)*/
     }
 

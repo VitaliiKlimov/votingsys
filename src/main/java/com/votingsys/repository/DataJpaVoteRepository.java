@@ -13,11 +13,23 @@ import java.util.List;
 public class DataJpaVoteRepository {
     private final CrudVoteRepository crudVoteRepository;
 
-    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository){
+    public DataJpaVoteRepository(CrudVoteRepository crudVoteRepository) {
         this.crudVoteRepository = crudVoteRepository;
     }
 
-    public List<Vote> getAll(){
+    public Vote save(Vote vote) {
+        return crudVoteRepository.save(vote);
+    }
+
+    public Vote get(int id){
+        return crudVoteRepository.getOne(id);
+    }
+
+    public boolean delete(int id) {
+        return crudVoteRepository.delete(id) != 0;
+    }
+
+    public List<Vote> getAll() {
         return crudVoteRepository.findAll();
     }
 }

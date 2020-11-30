@@ -2,9 +2,12 @@ package com.votingsys.repository;
 
 import com.votingsys.model.Restaurant;
 import com.votingsys.model.User;
+import com.votingsys.util.exception.NotFoundException;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User: Vitaliy Klimov
@@ -22,12 +25,13 @@ public class DataJpaRestaurantRepository {
         return crudRestaurantRepository.save(restaurant);
     }
 
-    public void delete(Restaurant restaurant) {
-        crudRestaurantRepository.delete(restaurant);
+    public boolean delete(int id) {
+        return crudRestaurantRepository.delete(id) != 0;
     }
 
     public Restaurant get(int id) {
-        return crudRestaurantRepository.findById(id).orElse(null);
+        Optional<Restaurant> optionalRestaurant = crudRestaurantRepository.findById(id);
+        return optionalRestaurant.orElseThrow(()->new NotFoundException("Restaurant not found"));
     }
 
     public List<Restaurant> getAll() {

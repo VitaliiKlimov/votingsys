@@ -1,18 +1,19 @@
 package com.votingsys.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractNamedEntity {
 
-    @OneToOne
-    private Menu menu;
 
     public Restaurant() {
 
+    }
+
+    public Restaurant(String name) {
+        this(null, name);
     }
 
     public Restaurant(Integer id, String name) {
@@ -20,11 +21,9 @@ public class Restaurant extends AbstractNamedEntity {
         super.name = name;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public Restaurant(Restaurant restaurant) {
+        super.id = restaurant.getId();
+        super.name = restaurant.getName();
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
 }

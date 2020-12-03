@@ -2,12 +2,13 @@ package com.votingsys.repository;
 
 import com.votingsys.model.User;
 import com.votingsys.util.exception.NotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.util.Assert;
 import java.util.List;
 import java.util.Optional;
+import static com.votingsys.util.ValidationUtil.checkNotFound;
+import static com.votingsys.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * User: Vitaliy Klimov
@@ -28,21 +29,32 @@ public class DataJpaUserRepository {
         return crudRepository.save(user);
     }
 
-    public boolean delete(int id) {
-        return crudRepository.delete(id) != 0;
+    public void delete(int id) {
+        checkNotFoundWithId(crudRepository.delete(id) !=0, id);
     }
 
     public User get(int id) {
         Optional<User> optionalUser = crudRepository.findById(id);
-        return optionalUser.orElseThrow(()->new NotFoundException("user not found")); /*.orElse(null)*/
+        return optionalUser.orElseThrow(() -> new NotFoundException("user with id=" + id + " not found"));
     }
 
     public User getByEmail(String email) {
-        return crudRepository.getByEmail(email);
+        Assert.notNull(email, "email must not be null");
+        return checkNotFound(crudRepository.getByEmail(email), "email=" + email);
     }
 
     public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
+    }
+
+    public void update(User user) {
+        Assert.notNull(user, "user must not be null");
+        checkNotFoundWithId(crudRepository.save(user), user.id());
+    }
+
+    public User create(User user) {
+        Assert.notNull(user, "user must not be null");
+        return crudRepository.save(user);
     }
 
 }

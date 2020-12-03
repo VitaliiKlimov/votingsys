@@ -3,6 +3,7 @@ package com.votingsys.repository;
 import com.votingsys.model.Vote;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,15 +22,14 @@ public class DataJpaVoteRepository {
         return crudVoteRepository.save(vote);
     }
 
-    public Vote get(int id){
-        return crudVoteRepository.getOne(id);
-    }
+    public Vote get(int id) { return crudVoteRepository.getById(id); }
+
+    public Vote getByDateTimeUserIdAndRestaurantId(LocalDateTime dateTime, int user_id, int rest_id) {
+        return crudVoteRepository.getByDateTimeUserIdAndRestaurantId(dateTime,user_id, rest_id);}
 
     public boolean delete(int id) {
         return crudVoteRepository.delete(id) != 0;
     }
 
-    public List<Vote> getAll() {
-        return crudVoteRepository.findAll();
-    }
+    public List<Vote> getAll() { return crudVoteRepository.findAll(); }
 }

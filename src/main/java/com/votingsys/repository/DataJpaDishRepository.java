@@ -1,12 +1,15 @@
 package com.votingsys.repository;
 
 import com.votingsys.model.Dish;
+import com.votingsys.model.User;
 import com.votingsys.model.Vote;
+import com.votingsys.util.exception.NotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * User: Vitaliy Klimov
@@ -25,12 +28,20 @@ public class DataJpaDishRepository {
         return crudDishRepository.save(dish);
     }
 
+    public Dish get(int id) {
+        Optional<Dish> optionalDish = crudDishRepository.findById(id);
+        return optionalDish.orElseThrow(()->new NotFoundException("dish not found"));
+    }
+
     public boolean delete(int id) {
         return crudDishRepository.delete(id) != 0;
     }
 
-    public List<Dish> getAllByRestaurantId(int id) {return crudDishRepository.getAllByRestaurantId(id);}
+    public List<Dish> getAllByRestaurantId(int id) {
+        return crudDishRepository.getAllByRestaurantId(id);
+    }
 
     public List<Dish> getAllByRestaurantIdAndDate(int id, LocalDate date) {
-        return crudDishRepository.getAllByRestaurantIdAndDate(id, date);}
+        return crudDishRepository.getAllByRestaurantIdAndDate(id, date);
+    }
 }

@@ -55,4 +55,10 @@ class DataJpaUserRepositoryTest {
         User created = dataJpaUserRepository.save(user);
         USER_MATCHER.assertMatch(created, UserTestData.user);
     }
+
+    @Test
+    void create() {
+        User created = dataJpaUserRepository.create(user);
+        USER_MATCHER.assertMatch(created, UserTestData.user);
+    }
 }

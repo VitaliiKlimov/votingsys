@@ -11,7 +11,7 @@ import static com.votingsys.model.AbstractBaseEntity.START_SEQ;
  * Date: 29.11.2020
  */
 public class RestaurantTestData {
-    public static final TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Restaurant.class);
+    public static final TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Restaurant.class,"votes");
 
     public static final int RESTAURANT_ID = START_SEQ + 2;
 

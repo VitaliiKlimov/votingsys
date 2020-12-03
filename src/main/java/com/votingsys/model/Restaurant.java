@@ -1,7 +1,7 @@
 package com.votingsys.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
@@ -25,5 +25,9 @@ public class Restaurant extends AbstractNamedEntity {
         super.id = restaurant.getId();
         super.name = restaurant.getName();
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("dateTime DESC")
+    private List<Vote> votes;
 
 }

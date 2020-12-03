@@ -35,6 +35,11 @@ public class Vote extends AbstractBaseEntity {
     this.dateTime = dateTime;
     }
 
+    public Vote(Integer id, LocalDateTime dateTime){
+        super.id = id;
+        this.dateTime = dateTime;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

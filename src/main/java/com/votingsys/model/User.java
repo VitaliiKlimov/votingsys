@@ -1,5 +1,6 @@
 package com.votingsys.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
@@ -44,6 +45,10 @@ public class User extends AbstractNamedEntity {
 //    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
+    private List<Vote> votes;
 
     public User() {
     }
@@ -104,9 +109,4 @@ public class User extends AbstractNamedEntity {
     public void setRoles(Collection<Role> roles) {
         this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    @OrderBy("dateTime DESC")
-    private List<Vote> votes;
-
 }

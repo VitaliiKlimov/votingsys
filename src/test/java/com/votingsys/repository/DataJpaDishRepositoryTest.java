@@ -1,5 +1,6 @@
 package com.votingsys.repository;
 
+import com.votingsys.DishTestData;
 import com.votingsys.model.Dish;
 import com.votingsys.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.votingsys.repository.DishTestData.*;
+import static com.votingsys.DishTestData.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -28,9 +29,21 @@ class DataJpaDishRepositoryTest {
 
     @Test
     void save() {
-        Dish newDish = getNew();
+        Dish newDish = DishTestData.getNew();
         Dish created = dataJpaDishRepository.save(newDish);
         DISH_MATCHER.assertMatch(newDish, created);
+    }
+
+    @Test
+    void get() {
+        Dish getted = dataJpaDishRepository.get(DISH3_ID);
+        DISH_MATCHER.assertMatch(dish3,getted);
+    }
+
+    @Test
+    void getAll() {
+        List<Dish> allDishes = dataJpaDishRepository.getAll();
+        DISH_MATCHER.assertMatch(allDishes, dishes);
     }
 
     @Test
@@ -49,5 +62,12 @@ class DataJpaDishRepositoryTest {
     void getAllByRestaurantIdAndDate() {
         List<Dish> menuRestaurant2 = dataJpaDishRepository.getAllByRestaurantIdAndDate(RESTAURANT2_ID, LocalDate.of(2020, 10, 28));
         DISH_MATCHER.assertMatch(menuRestaurant2, menu2);
+    }
+
+    @Test
+    void update() {
+        Dish updated = DishTestData.getUpdated();
+        dataJpaDishRepository.update(updated, 100006);
+        DISH_MATCHER.assertMatch(updated, dataJpaDishRepository.get(100006));
     }
 }

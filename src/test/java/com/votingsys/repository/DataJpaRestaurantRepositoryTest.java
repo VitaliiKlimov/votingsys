@@ -1,5 +1,6 @@
 package com.votingsys.repository;
 
+import com.votingsys.RestaurantTestData;
 import com.votingsys.model.Restaurant;
 import com.votingsys.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.votingsys.repository.RestaurantTestData.*;
+import static com.votingsys.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -49,5 +50,12 @@ class DataJpaRestaurantRepositoryTest {
     void getAll() {
         List<Restaurant> restaurants = dataJpaRestaurantRepository.getAll();
         RESTAURANT_MATCHER.assertMatch(actual, restaurants);
+    }
+
+    @Test
+    void update() {
+        Restaurant updated = RestaurantTestData.getUpdated();
+        dataJpaRestaurantRepository.update(updated,RESTAURANT_ID);
+        RESTAURANT_MATCHER.assertMatch(dataJpaRestaurantRepository.get(RESTAURANT_ID), updated);
     }
 }

@@ -1,5 +1,7 @@
 package com.votingsys.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ public class Vote extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     @NotNull
     private User user;
 
@@ -46,5 +49,21 @@ public class Vote extends AbstractBaseEntity {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }

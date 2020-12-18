@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static com.votingsys.util.ValidationUtil.assureIdConsistent;
+
 /**
  * User: Vitaliy Klimov
  * Date: 20.11.2020
@@ -33,5 +35,10 @@ public class DataJpaRestaurantRepository {
 
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll();
+    }
+
+    public void update(Restaurant restaurant, int id) {
+        assureIdConsistent(restaurant, id);
+        crudRestaurantRepository.save(restaurant);
     }
 }

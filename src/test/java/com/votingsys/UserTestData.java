@@ -1,11 +1,9 @@
-package com.votingsys.repository;
+package com.votingsys;
 
 import com.votingsys.model.User;
 import com.votingsys.model.Role;
-
 import java.util.Collections;
 import java.util.Date;
-
 import static com.votingsys.model.AbstractBaseEntity.START_SEQ;
 
 /**

@@ -1,4 +1,4 @@
-package com.votingsys.repository;
+package com.votingsys;
 
 import com.votingsys.model.Dish;
 import java.time.LocalDate;
@@ -13,6 +13,7 @@ public class DishTestData {
     public static final TestMatcher<Dish> DISH_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Dish.class, "restaurant");
 
     public static final int DISH_ID = START_SEQ + 6;
+    public static final int DISH3_ID = DISH_ID + 2;
     public static final int RESTAURANT1_ID = START_SEQ + 2;
     public static final int RESTAURANT2_ID = START_SEQ + 3;
 
@@ -25,6 +26,7 @@ public class DishTestData {
 
     public static List<Dish> menu1 = List.of(dish1, dish2, dish3);
     public static List<Dish> menu2 = List.of(dish5, dish6);
+    public static List<Dish> dishes = List.of(dish1, dish2, dish3, dish4, dish5, dish6);
 
     public static Dish getNew() {
         return new Dish(DISH_ID, "Новое блюдо", LocalDate.now(), 800);

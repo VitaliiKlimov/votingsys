@@ -1,9 +1,12 @@
-package com.votingsys.repository;
+package com.votingsys;
 
 
+
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.List;
 
+import static com.votingsys.TestUtil.readListFromJsonMvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestMatcher<T> {
@@ -23,12 +26,26 @@ public class TestMatcher<T> {
         assertThat(actual).usingRecursiveComparison().ignoringFields(fieldsToIgnore).isEqualTo(expected);
     }
 
-    public void assertMatch(Iterable<T> actual, T... expected) {
+    @SafeVarargs
+    public final void assertMatch(Iterable<T> actual, T... expected) {
         assertMatch(actual, List.of(expected));
     }
 
     public void assertMatch(Iterable<T> actual, Iterable<T> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields(fieldsToIgnore).isEqualTo(expected);
+    }
+
+    public ResultMatcher contentJson(T expected) {
+        return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, clazz), expected);
+    }
+
+    @SafeVarargs
+    public final ResultMatcher contentJson(T... expected) {
+        return contentJson(List.of(expected));
+    }
+
+    public ResultMatcher contentJson(Iterable<T> expected) {
+        return result -> assertMatch(readListFromJsonMvcResult(result, clazz), expected);
     }
 
 }

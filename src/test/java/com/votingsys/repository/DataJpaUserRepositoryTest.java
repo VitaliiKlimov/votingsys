@@ -1,5 +1,6 @@
 package com.votingsys.repository;
 
+import com.votingsys.UserTestData;
 import com.votingsys.model.User;
 import com.votingsys.util.exception.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.votingsys.repository.UserTestData.*;
+import static com.votingsys.UserTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**

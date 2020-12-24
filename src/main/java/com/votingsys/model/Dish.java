@@ -51,4 +51,28 @@ public class Dish extends AbstractBaseEntity {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
 }

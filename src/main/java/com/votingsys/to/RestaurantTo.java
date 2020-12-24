@@ -1,18 +1,23 @@
 package com.votingsys.to;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
  * User: Vitaliy Klimov
  * Date: 19.12.2020
  */
-public class RestaurantTo {
-    private Integer id;
+public class RestaurantTo extends BaseTo {
+
+    @NotBlank
+    @Size(min = 2, max = 100)
     private final String name;
+
     private final int votes;
 
     public RestaurantTo(Integer id, String name, int votes) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.votes = votes;
     }

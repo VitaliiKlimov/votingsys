@@ -1,14 +1,10 @@
 package com.votingsys.repository;
 
 import com.votingsys.model.Restaurant;
-import com.votingsys.model.User;
 import com.votingsys.model.Vote;
 import com.votingsys.util.exception.NotFoundException;
-import com.votingsys.web.SecurityUtil;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,7 +35,7 @@ public class DataJpaVoteRepository {
         return null;
         }
         Vote created = new Vote(LocalDateTime.now());
-        if(lastVoteToday != null) created.setId(lastVoteToday.getId());
+        if(null != lastVoteToday) created.setId(lastVoteToday.getId());
         created.setRestaurant(restaurant);
         created.setUser(crudUserRepository.getOne(userId));
         return save(created);

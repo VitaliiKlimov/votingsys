@@ -1,6 +1,8 @@
 package com.votingsys.web.user;
 
-import com.votingsys.repository.DataJpaUserRepository;
+import com.votingsys.service.UserService;
+import com.votingsys.to.UserTo;
+import com.votingsys.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.votingsys.model.User;
 import java.util.List;
@@ -10,31 +12,35 @@ import static com.votingsys.util.ValidationUtil.checkNew;
 public abstract class AbstractUserController {
 
     @Autowired
-    private DataJpaUserRepository userRepository;
+    private UserService userService;
 
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userService.getAll();
     }
 
     public User get(int id) {
-        return userRepository.get(id);
+        return userService.get(id);
+    }
+
+    public User create(UserTo userTo) {
+        return create(UserUtil.createNewFromTo(userTo));
     }
 
     public User create(User user) {
         checkNew(user);
-        return userRepository.save(user);
+        return userService.save(user);
     }
 
     public void delete(int id) {
-        userRepository.delete(id);
+        userService.delete(id);
     }
 
     public void update(User user, int id) {
         assureIdConsistent(user, id);
-        userRepository.update(user);
+        userService.update(user);
     }
 
     public User getByMail(String email) {
-        return userRepository.getByEmail(email);
+        return userService.getByEmail(email);
     }
 }

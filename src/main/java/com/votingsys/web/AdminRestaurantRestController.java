@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.votingsys.util.ValidationUtil.checkNotFoundWithId;
+
 /**
  * User: Vitaliy Klimov
  * Date: 05.12.2020
@@ -21,6 +23,9 @@ public class AdminRestaurantRestController {
     @Autowired
     private DataJpaRestaurantRepository dataJpaRestaurantRepository;
 
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {return dataJpaRestaurantRepository.get(id);}
+
     @GetMapping
     public List<Restaurant> getAll() {
         return dataJpaRestaurantRepository.getAll();
@@ -29,7 +34,7 @@ public class AdminRestaurantRestController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
-        dataJpaRestaurantRepository.delete(id);
+        checkNotFoundWithId(dataJpaRestaurantRepository.delete(id), id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

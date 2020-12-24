@@ -6,6 +6,8 @@ import com.votingsys.model.Vote;
 import com.votingsys.repository.DataJpaDishRepository;
 import com.votingsys.repository.DataJpaRestaurantRepository;
 import com.votingsys.repository.DataJpaVoteRepository;
+import com.votingsys.to.RestaurantTo;
+import com.votingsys.util.RestaurantsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,13 +32,14 @@ public class UserRestaurantRestController {
     private DataJpaVoteRepository voteRepository;
 
     @GetMapping
-    public List<Restaurant> getAll() {
-        return restaurantRepository.getAll();
+    public List<RestaurantTo> getAll() {
+        return RestaurantsUtil.getTos(restaurantRepository.getAll());
     }
 
     @GetMapping("/{id}")
-    public Restaurant get(@PathVariable int id) {
-        return restaurantRepository.get(id);
+    public RestaurantTo get(@PathVariable int id) {
+        Restaurant restaurant = restaurantRepository.get(id);
+        return RestaurantsUtil.createTo(restaurant, RestaurantsUtil.getNumberOfVotes(restaurant.votes));
     }
 
     @GetMapping("/{id}/dishes")
@@ -48,10 +51,5 @@ public class UserRestaurantRestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public Vote create(@RequestBody Restaurant restaurant) {
         return voteRepository.createVoteForRestaurant(restaurant, SecurityUtil.authUserId());
-    }
-
-    @GetMapping("/{id}/votes")
-    public Integer getNumberVotesTodayByRestaurantId(@PathVariable int id) {
-        return voteRepository.getNumberVotesTodayByRestaurantId(id);
     }
 }

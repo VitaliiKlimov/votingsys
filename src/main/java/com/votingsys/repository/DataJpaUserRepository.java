@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 import java.util.List;
 import java.util.Optional;
-import static com.votingsys.util.ValidationUtil.checkNotFound;
-import static com.votingsys.util.ValidationUtil.checkNotFoundWithId;
 
 /**
  * User: Vitaliy Klimov
@@ -29,8 +27,8 @@ public class DataJpaUserRepository {
         return crudRepository.save(user);
     }
 
-    public void delete(int id) {
-        checkNotFoundWithId(crudRepository.delete(id) !=0, id);
+    public boolean delete(int id) {
+        return crudRepository.delete(id) != 0;
     }
 
     public User get(int id) {
@@ -39,17 +37,11 @@ public class DataJpaUserRepository {
     }
 
     public User getByEmail(String email) {
-        Assert.notNull(email, "email must not be null");
-        return checkNotFound(crudRepository.getByEmail(email), "email=" + email);
+        return crudRepository.getByEmail(email);
     }
 
     public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
-    }
-
-    public void update(User user) {
-        Assert.notNull(user, "user must not be null");
-        checkNotFoundWithId(crudRepository.save(user), user.id());
     }
 
     public User create(User user) {

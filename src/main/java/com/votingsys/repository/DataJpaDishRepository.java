@@ -1,16 +1,12 @@
 package com.votingsys.repository;
 
 import com.votingsys.model.Dish;
-import com.votingsys.model.User;
-import com.votingsys.model.Vote;
+import com.votingsys.model.Restaurant;
 import com.votingsys.util.exception.NotFoundException;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
 import static com.votingsys.util.ValidationUtil.assureIdConsistent;
 
 /**
@@ -51,6 +47,10 @@ public class DataJpaDishRepository {
 
     public void update(Dish dish, int id) {
         assureIdConsistent(dish, id);
-        crudDishRepository.save(dish);
+        Dish exist = get(id);
+        exist.setDate(dish.getDate());
+        exist.setDescription(dish.getDescription());
+        exist.setPrice(dish.getPrice());
+        save(exist);
     }
 }

@@ -1,6 +1,7 @@
 package com.votingsys.web;
 
 import com.votingsys.DishTestData;
+import com.votingsys.UserTestData;
 import com.votingsys.model.Dish;
 import com.votingsys.repository.DataJpaDishRepository;
 import com.votingsys.util.exception.NotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.votingsys.DishTestData.*;
 import static com.votingsys.TestUtil.readFromJson;
+import static com.votingsys.TestUtil.userAuth;
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,7 +37,8 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
         Dish newDish = DishTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newDish)))
+                .content(JsonUtil.writeValue(newDish))
+                .with(userAuth(UserTestData.admin)))
                 .andExpect(status().isCreated());
         Dish created = readFromJson(action, Dish.class);
         int newId = created.id();
@@ -46,7 +49,8 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userAuth(UserTestData.admin)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(DISH_MATCHER.contentJson(dishes));
@@ -57,14 +61,16 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
         Dish updated = DishTestData.getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + DISH_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updated))
+                .with(userAuth(UserTestData.admin)))
                 .andExpect(status().isNoContent());
         DISH_MATCHER.assertMatch(dishRepository.get(DISH_ID), updated);
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + DISH_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL + DISH_ID)
+                .with(userAuth(UserTestData.admin)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, ()-> dishRepository.get(DISH_ID));

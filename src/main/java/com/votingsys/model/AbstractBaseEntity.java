@@ -2,7 +2,6 @@ package com.votingsys.model;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
-
 import javax.persistence.*;
 
 @MappedSuperclass

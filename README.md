@@ -13,12 +13,12 @@ Enterprise java REST application project for build a voting system for deciding 
      - If it is after 11:00 then it is too late, vote can't be changed
      - Each restaurant provides a new menu each day.
      
-#####Technology stack: Maven, Spring Security, JPA (Hibernate), Spring Security Test, Hibernate Validator, Json Jackson, Apache Tomcat, HSQLDB, JUnit, Hamcrest.
+##### Technology stack: Maven, Spring Security, JPA (Hibernate), Spring Security Test, Hibernate Validator, Json Jackson, Apache Tomcat, HSQLDB, JUnit, Hamcrest.
 
 ### curl samples for test REST interface (application deployed at application context `votingsys`).
 > For windows use `Git Bash`
 
-###AdminRestController test:
+### AdminRestController test:
 
 #### get All Users
 `curl -s http://localhost:8080/votingsys/rest/admin/users --user admin@gmail.com:admin`
@@ -38,61 +38,61 @@ Enterprise java REST application project for build a voting system for deciding 
 #### delete User 100000
 `curl -s -X DELETE http://localhost:8080/votingsys/rest/admin/users/100000 --user admin@gmail.com:admin`
 
-###ProfileRestController test:
+### ProfileRestController test:
 
-####Register new User
+#### Register new User
 `curl -i -X POST -d '{"name":"New User","email":"test@gmail.com","password":"test-password"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/votingsys/rest/profile/register`
 
-####Get current User data from profile
+#### Get current User data from profile
 `curl -s http://localhost:8080/votingsys/rest/profile --user user@yandex.ru:password`
 
-####Update User data
+####  Update User data
 `curl -s -X PUT -d '{"name": "UserUpdated", "email": "user@yandex.ru", "password": "passwordNew", "roles": ["USER"]}' -H 'Content-Type: application/json' http://localhost:8080/votingsys/rest/profile --user user@yandex.ru:password`
 
-####Delete User data
+#### Delete User data
 `curl -s -X DELETE http://localhost:8080/votingsys/rest/profile --user user@yandex.ru:password`
 
-###AdminDishRestController test:
+### AdminDishRestController test:
 
-####Create new dish
+#### Create new dish
 `curl -s -i -X POST -d '{"description": "Mashrooms","date": "2020-12-21","price": 100,"restaurantId": 100002}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/votingsys/rest/admin/dishes --user admin@gmail.com:admin`
 
-####Get all dishes
+#### Get all dishes
 `curl -s http://localhost:8080/votingsys/rest/admin/dishes --user admin@gmail.com:admin`
 
-####Update dish 100006
+#### Update dish 100006
 `curl -s -X PUT -d '{"id":100006, "description":"Roasted fish", "price":1700}' -H 'Content-Type: application/json' http://localhost:8080/votingsys/rest/admin/dishes/100006 --user admin@gmail.com:admin`
 
-####Delete dish 100007
+#### Delete dish 100007
 `curl -s -X DELETE http://localhost:8080/votingsys/rest/admin/dishes/100007 --user admin@gmail.com:admin`
 
 ### AdminRestaurantRestController Test
 
-####Create restaurant
+#### Create restaurant
 `curl -s -i -X POST -d '{"name":"Best place"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/votingsys/rest/admin/restaurants --user admin@gmail.com:admin`
 
-####Get all restaurants
+#### Get all restaurants
 `curl -s http://localhost:8080/votingsys/rest/admin/restaurants --user admin@gmail.com:admin`
 
-####Get restaurant 100002
+#### Get restaurant 100002
 `curl -s http://localhost:8080/votingsys/rest/admin/restaurants/100002 --user admin@gmail.com:admin`
 
-####Update restaurant 100002
+#### Update restaurant 100002
 `curl -s -X PUT -d '{"id":100002, "name":"Chicken palace"}' -H 'Content-Type: application/json' http://localhost:8080/votingsys/rest/admin/restaurants/100002 --user admin@gmail.com:admin`
 
-####Delete restaurant 100002
+#### Delete restaurant 100002
 `curl -s -X DELETE http://localhost:8080/votingsys/rest/admin/restaurants/100002 --user admin@gmail.com:admin`
 
-###UserRestaurantRestController test
+### UserRestaurantRestController test
 
-####Get all restaurants
+#### Get all restaurants
 `curl -s http://localhost:8080/votingsys/rest/user/restaurants --user user@yandex.ru:password`
 
-####Get restaurant 100002
+#### Get restaurant 100002
 `curl -s http://localhost:8080/votingsys/rest/user/restaurants/100002 --user user@yandex.ru:password`
 
-####Get actual dishes for restaurant 100002
+#### Get actual dishes for restaurant 100002
 `curl -s http://localhost:8080/votingsys/rest/user/restaurants/100002/dishes --user user@yandex.ru:password`
 
-####Vote for restaurant 100002
+#### Vote for restaurant 100002
 `curl -s -i -X POST -d '{"id":100002}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/votingsys/rest/user/restaurants --user user@yandex.ru:password`
